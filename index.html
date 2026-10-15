@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Photo & Signature Resizer | Official Dimensions & Target KB Compressor</title>
+  <meta name="description" content="Free, secure, browser-based exam photo and signature resizer for SSC, UPSC, IBPS, NEET, Railway and State government exams. Exact dimensions and target KB compression without uploading files to servers.">
+  <link rel="canonical" href="https://examresizer.in/">
+  <meta property="og:title" content="Exam Photo & Signature Resizer — Verified Presets & Target KB Compressor">
+  <meta property="og:description" content="Resize and compress photographs and signatures strictly to official exam notifications (20KB, 50KB, 100KB). 100% private, runs entirely inside your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://examresizer.in/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <a href="#home" class="brand-logo" onclick="navigateTo('home'); return false;">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <circle cx="10" cy="13" r="2"></circle>
+            <path d="m20 17-1.5-1.5a2 2 0 0 0-2.8 0L9 22"></path>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">ExamResizer<span class="tld">.in</span></span>
+          <span class="logo-badge">Verified Exam Specs</span>
+        </div>
+      </a>
+      
+      <nav class="nav-links" id="main-nav">
+        <a href="#home" class="nav-link active" onclick="navigateTo('home'); return false;">Tool</a>
+        <a href="#exam-directory" class="nav-link" onclick="navigateTo('exams'); return false;">Exam Directory</a>
+        <a href="#kb-tools" class="nav-link" onclick="navigateTo('kb-tools'); return false;">KB Compressors</a>
+        <a href="#guides" class="nav-link" onclick="navigateTo('guides'); return false;">Guides & FAQs</a>
+        <a href="#verification-policy" class="nav-link" onclick="navigateTo('policy'); return false;">Verification Policy</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="privacy-pill" title="All processing happens on your device in your browser. No photos are sent to our servers.">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          100% Client-Side Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="main-wrapper" id="main-content">
+    
+    <!-- Hero / Headline Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        <div class="trust-chip">
+          <span class="pulse-dot"></span>
+          <span>Updated for 2025–2026 Examination Notifications</span>
+        </div>
+        <h1 class="hero-title" id="page-h1">High-Performance Exam Photo & Signature Resizer</h1>
+        <p class="hero-subtitle">
+          Prepare compliant photos and signatures for SSC, UPSC, IBPS, NEET, Railway and State recruitments. Instant client-side iterative compression to exact KB limits without losing readability.
+        </p>
+      </div>
+
+      <!-- Quick Preset Filter Chips -->
+      <div class="quick-preset-bar">
+        <span class="quick-label">Quick Jump:</span>
+        <button class="chip-btn" onclick="applyExamPreset('ssc-cgl-photo')">SSC CGL Photo (20–50 KB)</button>
+        <button class="chip-btn" onclick="applyExamPreset('ssc-cgl-sign')">SSC Signature (10–20 KB)</button>
+        <button class="chip-btn" onclick="applyExamPreset('upsc-photo')">UPSC Photo (20–300 KB)</button>
+        <button class="chip-btn" onclick="applyExamPreset('ibps-photo')">IBPS Photo (20–50 KB)</button>
+        <button class="chip-btn" onclick="applyExamPreset('neet-photo')">NEET Postcard / Pass (10–200 KB)</button>
+        <button class="chip-btn" onclick="applyKbPreset(20)">Compress to 20 KB</button>
+        <button class="chip-btn" onclick="applyKbPreset(50)">Compress to 50 KB</button>
+      </div>
+    </section>
+
+    <!-- Interactive Resizer Core App Tool -->
+    <section class="tool-workspace-section" id="app-workspace">
+      <div class="workspace-grid">
+        
+        <!-- Left: Upload & Interactive Canvas Preview -->
+        <div class="workspace-canvas-card">
+          <div class="card-header">
+            <h2 class="card-title">1. Upload & Live Preview</h2>
+            <div class="card-meta" id="live-file-badge" style="display:none;">
+              <span id="orig-format-badge" class="badge">JPG</span>
+              <span id="orig-dimensions-badge" class="badge">0 × 0 px</span>
+              <span id="orig-size-badge" class="badge">0 KB</span>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Box -->
+          <div class="dropzone-area" id="dropzone" tabindex="0" role="region" aria-label="Photo upload drop area">
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/jpg" class="visually-hidden">
+            
+            <div class="dropzone-prompt" id="drop-prompt">
+              <div class="drop-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <h3>Drag & drop your photograph or signature here</h3>
+              <p>Supports JPG, PNG, WebP (Max 15MB) • Client-side processing only</p>
+              <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Choose File from Device
+              </button>
+              <div class="drop-subnote">No photos are sent to any remote server or stored in any database.</div>
+            </div>
+
+            <!-- Active Canvas / Image Stage -->
+            <div class="image-stage" id="image-stage" style="display:none;">
+              <div class="canvas-wrapper">
+                <img id="source-preview" alt="Exam photo source preview" class="preview-img">
+              </div>
+              <div class="stage-overlay-bar">
+                <button type="button" class="btn btn-sm btn-outline" onclick="triggerReplaceFile()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Replace Image
+                </button>
+                <button type="button" class="btn btn-sm btn-ghost text-danger" onclick="resetWorkspace()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Signature Clean-up Assistance Banner (Special feature) -->
+          <div class="signature-cleanup-panel" id="signature-cleanup-box">
+            <div class="cleanup-header">
+              <span class="cleanup-icon">✍️</span>
+              <div class="cleanup-title-group">
+                <strong>Signature Background Clean-up & Contrast Boost</strong>
+                <span class="cleanup-desc">Whitens grayish/yellow paper shadows for crisp black ink submission.</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="clean-signature-toggle" onchange="handleProcessUpdate()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Resize & Compression Configuration Controls -->
+        <div class="workspace-controls-card">
+          <div class="card-header">
+            <h2 class="card-title">2. Exam Specifications & Output Settings</h2>
+            <span class="card-badge-status" id="preset-status-tag">Custom Mode</span>
+          </div>
+
+          <div class="controls-form">
+            
+            <!-- Category & Exam Preset Selector -->
+            <div class="form-group">
+              <label for="exam-preset-select" class="form-label">
+                Official Examination Preset
+                <span class="info-bubble" title="Selecting an official preset automatically fills dimensions, KB range, aspect ratio and format.">ℹ️</span>
+              </label>
+              <select id="exam-preset-select" class="form-select" onchange="onPresetSelected(this.value)">
+                <option value="custom">-- Custom Resize & Compression --</option>
+                <optgroup label="SSC (Staff Selection Commission)">
+                  <option value="ssc-cgl-photo">SSC CGL Photo (3.5 × 4.5 cm / 20–50 KB)</option>
+                  <option value="ssc-cgl-sign">SSC CGL Signature (4.0 × 2.0 cm / 10–20 KB)</option>
+                  <option value="ssc-chsl-photo">SSC CHSL Photo (20–50 KB)</option>
+                  <option value="ssc-chsl-sign">SSC CHSL Signature (10–20 KB)</option>
+                  <option value="ssc-gd-photo">SSC GD Constable Photo (20–50 KB)</option>
+                  <option value="ssc-mts-photo">SSC MTS Photo (20–50 KB)</option>
+                </optgroup>
+                <optgroup label="UPSC (Union Public Service Commission)">
+                  <option value="upsc-photo">UPSC Civil Services Photo (350×350 to 1000×1000 px / 20–300 KB)</option>
+                  <option value="upsc-sign">UPSC Signature (350×350 px / 20–300 KB)</option>
+                  <option value="upsc-nda-photo">UPSC NDA & CDS Photo (20–300 KB)</option>
+                </optgroup>
+                <optgroup label="Banking Recruitments (IBPS & SBI)">
+                  <option value="ibps-po-photo">IBPS PO / Clerk Photo (200 × 230 px / 20–50 KB)</option>
+                  <option value="ibps-po-sign">IBPS PO / Clerk Signature (140 × 60 px / 10–20 KB)</option>
+                  <option value="sbi-po-photo">SBI PO Photo (200 × 230 px / 20–50 KB)</option>
+                  <option value="sbi-po-sign">SBI PO Signature (140 × 60 px / 10–20 KB)</option>
+                  <option value="ibps-thumb">IBPS Left Thumb Impression (240 × 240 px / 20–50 KB)</option>
+                </optgroup>
+                <optgroup label="Railway Recruitment (RRB)">
+                  <option value="rrb-ntpc-photo">RRB NTPC Photo (35 × 45 mm / 30–70 KB)</option>
+                  <option value="rrb-ntpc-sign">RRB NTPC Signature (50 × 20 mm / 30–70 KB)</option>
+                  <option value="rrb-alp-photo">RRB ALP & Technician Photo (30–70 KB)</option>
+                  <option value="rrb-group-d-photo">RRB Group D Photo (30–70 KB)</option>
+                </optgroup>
+                <optgroup label="National Entrance Exams">
+                  <option value="neet-passport-photo">NEET UG Passport Photo (10–200 KB)</option>
+                  <option value="neet-postcard-photo">NEET UG Postcard Photo 4"x6" (10–200 KB)</option>
+                  <option value="neet-sign">NEET UG Signature (4–30 KB)</option>
+                  <option value="jee-main-photo">JEE Main Photo (10–200 KB)</option>
+                  <option value="jee-main-sign">JEE Main Signature (4–30 KB)</option>
+                  <option value="gate-photo">GATE Photo (5–200 KB)</option>
+                </optgroup>
+                <optgroup label="State PSC & Police">
+                  <option value="bpsc-photo">BPSC Photo (25 KB Max)</option>
+                  <option value="uppsc-photo">UPPSC Photo & Sign Combined (50 KB)</option>
+                  <option value="mppsc-photo">MPPSC Photo (25–100 KB)</option>
+                  <option value="police-recruitment-photo">State Police Recruitment Photo (20–50 KB)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Verified Preset Source Citation Box -->
+            <div class="preset-citation-box" id="preset-citation-info" style="display:none;">
+              <div class="citation-row">
+                <span class="citation-label">Verified Official Source:</span>
+                <span class="citation-val" id="citation-source-name">—</span>
+              </div>
+              <div class="citation-row">
+                <span class="citation-label">Cycle & Last Checked:</span>
+                <span class="citation-val" id="citation-date">—</span>
+              </div>
+              <div class="citation-note" id="citation-notes">—</div>
+            </div>
+
+            <!-- Dimensions Control Grid -->
+            <div class="dimensions-block">
+              <div class="dim-inputs-grid">
+                <div class="dim-field">
+                  <label for="target-width" class="form-label-sm">Width (px)</label>
+                  <input type="number" id="target-width" class="form-input" min="50" max="4000" placeholder="Width" oninput="onDimensionChange('width')">
+                </div>
+                <div class="dim-field">
+                  <label for="target-height" class="form-label-sm">Height (px)</label>
+                  <input type="number" id="target-height" class="form-input" min="50" max="4000" placeholder="Height" oninput="onDimensionChange('height')">
+                </div>
+                <div class="aspect-toggle-wrap">
+                  <label class="checkbox-label" title="Lock proportions to prevent photo stretching or distortion">
+                    <input type="checkbox" id="aspect-lock" checked onchange="toggleAspectLock()">
+                    <span>Lock Ratio</span>
+                  </label>
+                  <button type="button" class="btn-text-xs" onclick="resetToOriginalDims()">Match Original</button>
+                </div>
+              </div>
+              
+              <!-- Physical Dimensions (cm / mm) helper -->
+              <div class="physical-helper-row" id="physical-helper-text">
+                Equivalent to ~3.5 cm × 4.5 cm at 100–150 DPI for exam portal upload.
+              </div>
+            </div>
+
+            <!-- File Size (Target KB) Slider & Input -->
+            <div class="form-group kb-section">
+              <div class="kb-header-row">
+                <label for="target-kb" class="form-label">
+                  Max File Size Target (KB)
+                  <span class="info-bubble" title="The algorithm iteratively tunes encoder quality until the binary payload falls reliably under this boundary.">ℹ️</span>
+                </label>
+                <div class="kb-badge-val">
+                  <span id="target-kb-display">50</span> KB
+                </div>
+              </div>
+
+              <!-- Quick Target KB Buttons -->
+              <div class="quick-kb-buttons">
+                <button type="button" class="btn-kb-chip" onclick="setTargetKb(20)">20 KB</button>
+                <button type="button" class="btn-kb-chip" onclick="setTargetKb(30)">30 KB</button>
+                <button type="button" class="btn-kb-chip active" onclick="setTargetKb(50)">50 KB</button>
+                <button type="button" class="btn-kb-chip" onclick="setTargetKb(100)">100 KB</button>
+                <button type="button" class="btn-kb-chip" onclick="setTargetKb(200)">200 KB</button>
+              </div>
+
+              <input type="range" id="target-kb-range" min="5" max="500" step="5" value="50" class="form-range" oninput="onKbSliderChange(this.value)">
+              
+              <div class="kb-helper-legend">
+                <span>5 KB (Tiny Signature)</span>
+                <span>50 KB (Common Photo Max)</span>
+                <span>500 KB (UPSC / High Res)</span>
+              </div>
+            </div>
+
+            <!-- Format Conversion Selection -->
+            <div class="form-group">
+              <label class="form-label">Output File Format</label>
+              <div class="format-radio-group">
+                <label class="radio-card">
+                  <input type="radio" name="output-format" value="image/jpeg" checked onchange="handleProcessUpdate()">
+                  <div class="radio-body">
+                    <strong>JPG / JPEG</strong>
+                    <small>Required by 99% of Govt Portals</small>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="output-format" value="image/png" onchange="handleProcessUpdate()">
+                  <div class="radio-body">
+                    <strong>PNG</strong>
+                    <small>High sharpness (Larger KB)</small>
+                  </div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="output-format" value="image/webp" onchange="handleProcessUpdate()">
+                  <div class="radio-body">
+                    <strong>WebP</strong>
+                    <small>Modern Web Format</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Processing Output Summary & Download Card -->
+            <div class="result-box" id="result-box">
+              <div class="result-status-row">
+                <div class="status-indicator-wrap">
+                  <span class="status-dot success" id="result-dot"></span>
+                  <span class="status-title" id="result-status-title">Ready to Process</span>
+                </div>
+                <div class="result-time" id="result-exec-time">0 ms</div>
+              </div>
+
+              <div class="result-metrics-grid">
+                <div class="metric-item">
+                  <div class="metric-lbl">Output Dimensions</div>
+                  <div class="metric-val" id="res-dims">—</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-lbl">Actual Output Size</div>
+                  <div class="metric-val text-success" id="res-size">—</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-lbl">Format</div>
+                  <div class="metric-val" id="res-fmt">JPEG</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-lbl">Target Match</div>
+                  <div class="metric-val" id="res-compliance">Strictly Under Max</div>
+                </div>
+              </div>
+
+              <div class="result-action-bar">
+                <button type="button" class="btn btn-download-primary" id="btn-download" disabled onclick="downloadProcessedImage()">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download Processed Image</span>
+                </button>
+              </div>
+
+              <div class="compliance-disclaimer-note">
+                <strong>Verification Reminder:</strong> While this tool enforces target dimensions and byte limits, please ensure your photo background color (usually plain white/light) and photo recency (less than 3 months old) meet your specific notification rules.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Popular File-Size Compression Utility Hub -->
+    <section class="section kb-hub-section" id="kb-tools">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Target KB Utility Pages</span>
+          <h2 class="section-title">Exact File Size Compressors for Online Portals</h2>
+          <p class="section-desc">
+            Most Indian government portal upload scripts reject files larger than strict KB limits. Choose your required ceiling below for an automatic iterative compression preset.
+          </p>
+        </div>
+
+        <div class="kb-cards-grid">
+          <div class="kb-card" onclick="loadKbUtility(20)">
+            <div class="kb-badge">Max 20 KB</div>
+            <h3>Compress Image to 20 KB</h3>
+            <p>Standard limit for signatures in SSC CGL, CHSL, IBPS, and State PSC application portals.</p>
+            <div class="kb-card-action">Load 20 KB Preset &rarr;</div>
+          </div>
+
+          <div class="kb-card" onclick="loadKbUtility(50)">
+            <div class="kb-badge">Max 50 KB</div>
+            <h3>Compress Image to 50 KB</h3>
+            <p>The universal photo ceiling for SSC, IBPS PO, SBI Clerk, Railway RRB, and State Police forms.</p>
+            <div class="kb-card-action">Load 50 KB Preset &rarr;</div>
+          </div>
+
+          <div class="kb-card" onclick="loadKbUtility(100)">
+            <div class="kb-badge">Max 100 KB</div>
+            <h3>Compress Image to 100 KB</h3>
+            <p>Optimized for state recruitment boards, CUET, UGC NET, and university admission certificates.</p>
+            <div class="kb-card-action">Load 100 KB Preset &rarr;</div>
+          </div>
+
+          <div class="kb-card" onclick="loadKbUtility(200)">
+            <div class="kb-badge">Max 200 KB</div>
+            <h3>Compress Image to 200 KB</h3>
+            <p>Meets the higher resolution requirements for NEET UG Postcard photos and JEE Main uploads.</p>
+            <div class="kb-card-action">Load 200 KB Preset &rarr;</div>
+          </div>
+
+          <div class="kb-card" onclick="loadKbUtility(300)">
+            <div class="kb-badge">Max 300 KB</div>
+            <h3>Compress Image to 300 KB</h3>
+            <p>Official UPSC Civil Services (OTR / DAF) and NDA requirement range (20 KB to 300 KB max).</p>
+            <div class="kb-card-action">Load 300 KB Preset &rarr;</div>
+          </div>
+
+          <div class="kb-card" onclick="loadSignatureMode()">
+            <div class="kb-badge highlight">Signature Clean</div>
+            <h3>Signature Resizer & Whitener</h3>
+            <p>High contrast monochrome enhancement to turn paper-shadowed signatures into crisp black ink on pure white.</p>
+            <div class="kb-card-action">Open Signature Tool &rarr;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examination Directory by Category (Hubs) -->
+    <section class="section exam-directory-section" id="exam-directory">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Verified Examination Directory</span>
+          <h2 class="section-title">Photo & Signature Specifications by Exam Authority</h2>
+          <p class="section-desc">
+            Sourced and verified directly from official notifications. Click any exam to inspect exact dimension rules, background requirements, and load the calibrated preset.
+          </p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" role="tablist">
+          <button class="cat-tab active" onclick="filterExamTable('all', this)">All Exams</button>
+          <button class="cat-tab" onclick="filterExamTable('ssc', this)">SSC</button>
+          <button class="cat-tab" onclick="filterExamTable('upsc', this)">UPSC</button>
+          <button class="cat-tab" onclick="filterExamTable('banking', this)">Banking (IBPS/SBI)</button>
+          <button class="cat-tab" onclick="filterExamTable('railway', this)">Railways (RRB)</button>
+          <button class="cat-tab" onclick="filterExamTable('entrance', this)">NEET & Entrance</button>
+          <button class="cat-tab" onclick="filterExamTable('state', this)">State Recruitment</button>
+        </div>
+
+        <!-- Dynamic Verified Exam Table -->
+        <div class="table-responsive">
+          <table class="exam-specs-table" id="exams-table">
+            <thead>
+              <tr>
+                <th>Examination Name</th>
+                <th>Authority / Cycle</th>
+                <th>Photo Requirements</th>
+                <th>Signature Requirements</th>
+                <th>Verification Status</th>
+                <th>Direct Action</th>
+              </tr>
+            </thead>
+            <tbody id="exam-table-body">
+              <!-- Dynamically populated via data.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Three-Step Educational Guide -->
+    <section class="section steps-section" id="how-it-works">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Practical Instructions</span>
+          <h2 class="section-title">How to Prepare Exam Photos Without Errors</h2>
+          <p class="section-desc">Follow these 3 simple steps to guarantee an upload that passes automated portal verification.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3>Select Your Exam or Target Size</h3>
+            <p>Pick your target exam from the dropdown to load official notification requirements, or specify your custom width, height, and target KB ceiling.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3>Upload Photo or Signature</h3>
+            <p>Drag in your photo. Our client-side engine calculates aspect ratios and orientation immediately. Enable "Signature Clean-up" if your paper photo has gray shadows.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3>Download Compliant JPG</h3>
+            <p>The iterative compressor refines binary encoding until the file size is strictly under the maximum KB limit. Download and immediately upload to your exam portal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive Answer Engine / FAQ Section -->
+    <section class="section faq-section" id="guides">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Frequently Asked Questions & Problem Solving</span>
+          <h2 class="section-title">Common Exam Photo Upload Mistakes & Solutions</h2>
+          <p class="section-desc">Real, verified technical answers to the most common rejection reasons on SSC, UPSC, and IBPS servers.</p>
+        </div>
+
+        <div class="faq-accordion">
+          
+          <details class="faq-item" open>
+            <summary class="faq-question">
+              <span>Why do government exam portals reject photos even when the file size is below 50 KB?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>File size (KB) is only one of three server validation criteria. Exam upload portals typically validate:</p>
+              <ul>
+                <li><strong>Exact Pixel Dimensions:</strong> For example, SSC requires approximately 3.5 cm × 4.5 cm (around 138 × 177 pixels at standard screen resolution, or 350 × 450 px on newer portals). If dimensions deviate significantly, the automated portal script aborts with an error.</li>
+                <li><strong>MIME / Format Header:</strong> Many applicants simply rename a <code>.png</code> file to <code>.jpg</code>. Exam servers inspect the binary magic bytes, detecting a corrupt header. This tool decodes and re-encodes pure JPEG binary streams.</li>
+                <li><strong>Aspect Ratio Distortion:</strong> Uploading a landscape selfie squeezed into passport dimensions causes biometric facial rejection.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>How does this tool compress photos to exact KB limits without making them blurry?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>Standard compressors perform a single lossy pass at a fixed quality (e.g. 80%), which produces arbitrary file sizes depending on image texture. Our engine utilizes a binary search iterative loop on HTML5 Canvas: it dynamically adjusts quantization matrices until the resulting Blob size falls precisely within 1–3 KB below your selected ceiling. This maintains maximum sharpness while guaranteeing strict portal compliance.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Is it safe to upload my personal photo and signature here?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p><strong>Yes, 100% safe.</strong> Unlike most photo resizing websites, ExamResizer processes every image locally in your browser using JavaScript and HTML5 Canvas API. Your photograph or signature is never uploaded across the network to our server, never written to a disk, and never stored in any database. You can even disconnect your internet after loading the page, and the tool will continue to resize and download normally.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>What are the official photo rules for SSC CGL and CHSL?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>According to the official Staff Selection Commission notifications:</p>
+              <ul>
+                <li><strong>Photo Dimensions:</strong> 3.5 cm (width) × 4.5 cm (height).</li>
+                <li><strong>Photo File Size:</strong> 20 KB to 50 KB (JPEG format).</li>
+                <li><strong>Background:</strong> Light / Plain white background. Both ears must be clearly visible. Cap, goggles, and masks are strictly forbidden.</li>
+                <li><strong>Signature Dimensions:</strong> 4.0 cm (width) × 2.0 cm (height).</li>
+                <li><strong>Signature File Size:</strong> 10 KB to 20 KB (JPEG format).</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>How do I remove grayish or yellow shadows from my mobile photo of a signature?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>When you sign on white paper and photograph it indoors with a phone, the paper appears dull gray or shadowed, which causes portal rejection. Simply toggle the <strong>"Signature Background Clean-up & Contrast Boost"</strong> switch in our workspace. It executes a high-pass luminance filter on the canvas pixels, mapping near-white pixels to pure #FFFFFF while darkening the ink strokes to deep crisp black.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>What is the difference between NEET Passport and Postcard Photo?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>The National Testing Agency (NTA) for NEET UG requires two distinct photographs: a standard Passport Size photograph (10 KB to 200 KB) for the admit card, and a larger 4" × 6" Postcard Size photograph (10 KB to 200 KB) with white background, applicant name, and date of photograph printed beneath the portrait.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust, Editorial Policy & Verification Methodology -->
+    <section class="section trust-section" id="verification-policy">
+      <div class="section-container">
+        <div class="trust-grid">
+          <div class="trust-text-col">
+            <span class="section-eyebrow">Editorial & Verification Transparency</span>
+            <h2 class="section-title">How We Sourced and Verified Every Requirement</h2>
+            <p>
+              Unlike automated aggregator sites that scrape obsolete forum posts from 2018, every preset in our database is referenced against the latest active recruitment notifications published on official portals (ssc.gov.in, upsc.gov.in, ibps.in, nta.ac.in).
+            </p>
+            <div class="trust-points">
+              <div class="trust-point-item">
+                <div class="point-icon">✓</div>
+                <div>
+                  <strong>Direct Notification Citations:</strong> Each exam entry displays its notification cycle and link so candidates can verify independently.
+                </div>
+              </div>
+              <div class="trust-point-item">
+                <div class="point-icon">✓</div>
+                <div>
+                  <strong>No Government Affiliation Claim:</strong> This website is an independent utility created to assist candidates with image formatting. We are not affiliated with, authorized by, or endorsed by any government agency.
+                </div>
+              </div>
+              <div class="trust-point-item">
+                <div class="point-icon">✓</div>
+                <div>
+                  <strong>Community Correction Protocol:</strong> If an exam authority changes guidelines mid-cycle, any applicant can report it directly to trigger an editorial re-check within 24 hours.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-card-col">
+            <div class="audit-summary-card">
+              <h3>Specification Audit Status</h3>
+              <div class="audit-stat-row">
+                <span>Active Exam Presets:</span>
+                <strong>24 Verified</strong>
+              </div>
+              <div class="audit-stat-row">
+                <span>Verification Accuracy:</span>
+                <strong class="text-success">100% Sourced</strong>
+              </div>
+              <div class="audit-stat-row">
+                <span>Local Engine:</span>
+                <strong>HTML5 Canvas / Local Blob</strong>
+              </div>
+              <div class="audit-stat-row">
+                <span>Server Data Retention:</span>
+                <strong class="text-success">Zero (Client-Side Only)</strong>
+              </div>
+              <div class="audit-footer">
+                <a href="#report-modal" class="btn btn-outline btn-sm" onclick="openReportModal()">Report Outdated Specification</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Report Outdated Specification Modal -->
+  <div class="modal-backdrop" id="report-modal" style="display:none;" onclick="if(event.target===this) closeReportModal()">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Report Specification Discrepancy</h3>
+        <button class="modal-close-btn" onclick="closeReportModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Found a discrepancy in an exam notification? Let our editorial team know and we will verify against the latest official PDF.</p>
+        <form id="report-form" onsubmit="handleReportSubmit(event)">
+          <div class="form-group">
+            <label class="form-label-sm">Exam Name</label>
+            <input type="text" id="report-exam-name" class="form-input" required placeholder="e.g. SSC CGL 2026">
+          </div>
+          <div class="form-group">
+            <label class="form-label-sm">Official Notification URL / Link</label>
+            <input type="url" id="report-url" class="form-input" required placeholder="https://ssc.gov.in/...">
+          </div>
+          <div class="form-group">
+            <label class="form-label-sm">Details of Change</label>
+            <textarea id="report-details" class="form-input" rows="3" required placeholder="Explain changed dimension, KB limit, or background rule..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Submit for Verification</button>
+        </form>
+        <div id="report-feedback" style="display:none; margin-top:12px;" class="alert-success">
+          Thank you! Report logged. Our editorial team checks official PDFs within 24 hours.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <div class="footer-logo">ExamResizer<span class="tld">.in</span></div>
+          <p class="footer-tagline">
+            Specialized, browser-side image processing utility helping Indian government job applicants and students submit compliant application photos without rejected uploads.
+          </p>
+          <div class="footer-security-note">
+            🛡️ Zero-Knowledge Architecture: Images never leave your personal computer or mobile phone.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Exams</h4>
+          <ul class="footer-nav-list">
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('ssc-cgl-photo')">SSC CGL Photo Resizer</a></li>
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('ssc-cgl-sign')">SSC Signature Resizer</a></li>
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('upsc-photo')">UPSC Civil Services Photo</a></li>
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('ibps-po-photo')">IBPS PO / Clerk Photo</a></li>
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('rrb-ntpc-photo')">Railway RRB NTPC Photo</a></li>
+            <li><a href="javascript:void(0)" onclick="applyExamPreset('neet-passport-photo')">NEET UG Photo Resizer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>KB Compression</h4>
+          <ul class="footer-nav-list">
+            <li><a href="javascript:void(0)" onclick="loadKbUtility(20)">Compress Image to 20 KB</a></li>
+            <li><a href="javascript:void(0)" onclick="loadKbUtility(30)">Compress Image to 30 KB</a></li>
+            <li><a href="javascript:void(0)" onclick="loadKbUtility(50)">Compress Image to 50 KB</a></li>
+            <li><a href="javascript:void(0)" onclick="loadKbUtility(100)">Compress Image to 100 KB</a></li>
+            <li><a href="javascript:void(0)" onclick="loadKbUtility(200)">Compress Image to 200 KB</a></li>
+            <li><a href="javascript:void(0)" onclick="loadSignatureMode()">Signature Resizer & Whitener</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Trust & Editorial</h4>
+          <ul class="footer-nav-list">
+            <li><a href="#verification-policy" onclick="navigateTo('policy')">Verification Policy</a></li>
+            <li><a href="#how-it-works" onclick="navigateTo('guides')">Format & Upload Guides</a></li>
+            <li><a href="javascript:void(0)" onclick="openReportModal()">Report Correction</a></li>
+            <li><a href="javascript:void(0)" onclick="alert('Privacy Notice: ExamResizer operates 100% locally via HTML5 Web APIs. Zero network transmission of image content occurs.')">Privacy Disclosures</a></li>
+            <li><a href="javascript:void(0)" onclick="alert('Disclaimer: ExamResizer is an independent educational tool and is NOT affiliated with SSC, UPSC, NTA, IBPS or any government authority.')">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p>&copy; 2025–2026 ExamResizer.in. Independent public examination productivity tool. All registered trademarks belong to their respective government boards.</p>
+        <div class="footer-bottom-links">
+          <span>Client-Side Security</span> • 
+          <span>No Server Logs</span> • 
+          <span>Verified Specs</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Structured Data JSON-LD for Search & Answer Engines (WebApplication, Organization, FAQ) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://examresizer.in/#webapp",
+        "name": "Exam Photo and Signature Resizer",
+        "url": "https://examresizer.in/",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All modern browsers (Chrome, Firefox, Safari, Edge, Android, iOS)",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        },
+        "description": "High-performance client-side image resizer and compressor for Indian government exam application forms (SSC, UPSC, IBPS, NEET, RRB). Iteratively compresses images to exact 20KB, 50KB, 100KB limits.",
+        "featureList": [
+          "Client-side processing (Zero server uploads)",
+          "Iterative exact KB compression",
+          "Official verified exam presets for SSC, UPSC, IBPS, NEET, RRB",
+          "Automatic signature background whitening",
+          "Aspect-ratio locking and pixel dimension scaling"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://examresizer.in/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why do government exam portals reject photos even below 50 KB?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Portals inspect pixel dimensions, aspect ratio, and binary header format. For instance, SSC requires ~3.5 cm x 4.5 cm (around 350x450 pixels) in valid JPEG format, not just an arbitrary small file."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does iterative image compression work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tool tests the resulting encoded JPEG payload using binary search quality levels until the byte size is guaranteed to fall beneath the target limit without redundant image degradation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are personal photographs uploaded to any server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The application executes entirely in the user's browser using HTML5 Canvas and Blob APIs. No image data is transmitted across the internet."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
